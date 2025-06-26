@@ -12,4 +12,11 @@ public class EntityTests
         var user = new User { Name = "Alice" };
         Assert.NotEqual(Guid.Empty, user.Id);
     }
+
+    [Fact]
+    public void TaskItem_ShouldHaveDefaultGuid()
+    {
+        var task = new TaskItem { Title = "Test", Description = "Test", DueDate = DateTime.Now.AddDays(1) };
+        Assert.NotEqual(Guid.Empty, task.Id);
+    }
 }
