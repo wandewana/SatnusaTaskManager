@@ -38,8 +38,33 @@ public class TaskService
 
         task.AssignedUserId = userId;
         await _taskRepo.UpdateAsync(task);
-        _logger.Log($"Task '{task.Title}' assigned to user '{userId}'.");
+        _logger.Log($"Task '{task.Title}' assigned to user {user.Name}.");
     }
 
-    // Additional methods: UpdateTaskAsync, DeleteTaskAsync, GetAllTasksAsync, GetTasksByUserAsync
+    public async Task<List<TaskItem>> GetAllTasksAsync()
+    {
+        return await _taskRepo.GetAllAsync();
+    }
+
+    public async Task<TaskItem?> GetTaskByIdAsync(Guid taskId)
+    {
+        return await _taskRepo.GetByIdAsync(taskId);
+    }
+
+    public async Task<List<TaskItem>> GetTasksByUserAsync(Guid userId)
+    {
+        return await _taskRepo.GetByUserIdAsync(userId);
+    }
+
+    public async Task UpdateTaskAsync(TaskItem task)
+    {
+        await _taskRepo.UpdateAsync(task);
+        _logger.Log($"Task '{task.Title}' updated.");
+    }
+
+    public async Task DeleteTaskAsync(Guid taskId)
+    {
+        await _taskRepo.DeleteAsync(taskId);
+        _logger.Log($"Task with ID '{taskId}' deleted.");
+    }
 }
