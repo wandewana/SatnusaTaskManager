@@ -26,4 +26,24 @@ public class TaskServiceTests
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => service.CreateTaskAsync(task));
     }
+
+    [Fact]
+    public async Task AssignTaskAsync_ShouldSetAssignedUserId()
+    {
+        var task = new TaskItem { Id = Guid.NewGuid(), Title = "T", DueDate = DateTime.Now.AddDays(1) };
+        var user = new User { Id = Guid.NewGuid(), Name = "Bob" };
+
+        var taskRepo = new Mock<ITaskRepository>();
+        var userRepo = new Mock<IUserRepository>();
+        var logger = new Mock<ILoggerService>();
+
+        taskRepo.Setup(r => r.GetByIdAsync(task.Id)).ReturnsAsync(task);
+        userRepo.Setup(r => r.GetByIdAsync(user.Id)).ReturnsAsync(user);
+
+        var service = new TaskService(taskRepo.Object, userRepo.Object, logger.Object);
+
+        await service.AssignTaskAsync(task.Id, user.Id);
+
+        taskRepo.Verify(r => r.UpdateAsync(It.Is<TaskItem>(t => t.AssignedUserId == user.Id)), Times.Once);
+    }
 }
