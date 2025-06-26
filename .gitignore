@@ -1,0 +1,54 @@
+# Ignore build outputs
+**/bin/
+**/obj/
+
+# Ignore NuGet-specific generated files
+**/project.assets.json
+**/*.csproj.nuget.dgspec.json
+**/project.nuget.cache
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+_ReSharper*/
+*.DotSettings.user
+
+# Logs
+*.log
+logs/
+
+# Test results
+TestResults/
+*.trx
+*.coverage*
+
+# Scaffolding
+ScaffoldingReadMe.txt
+
+# Packages
+packages/
+.nuget/
+*.nupkg
+*.snupkg
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary
+*.tmp
+*.temp
+*.bak
+*.old
+
+# VS/VS Code folders
+.vs/
