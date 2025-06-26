@@ -11,11 +11,18 @@ public class ConsoleLoggerServiceTests
     public void Log_ShouldWriteToConsole()
     {
         var logger = new ConsoleLoggerService();
+        var originalConsoleOut = Console.Out;
+        try
+        {
+            using var sw = new StringWriter();
+            Console.SetOut(sw);
 
-        using var sw = new StringWriter();
-        Console.SetOut(sw);
-
-        logger.Log("Hello");
-        Assert.Contains("Hello", sw.ToString());
+            logger.Log("Hello");
+            Assert.Contains("Hello", sw.ToString());
+        }
+        finally
+        {
+            Console.SetOut(originalConsoleOut);
+        }
     }
 }
