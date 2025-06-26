@@ -8,4 +8,5 @@ public interface IUserRepository
 {
     Task<User?> GetByIdAsync(Guid userId);
     Task AddAsync(User user);
+    Task<List<User>> GetAllAsync();
 }
